@@ -3,6 +3,7 @@ import styled from 'styled-components/macro';
 
 import TodoItem from './TodoItem';
 import AddItem from './AddItem';
+// import AddMiniTodoItem from './AddMiniTodoItem';
 
 const StyledTodo = styled.div`
   width: 100%;
@@ -51,6 +52,7 @@ const StyledFooter = styled.div`
 
 const Todo = () => {
   const [todoItems, setTodoItems] = useState([]);
+  // const [todoMiniItems, setMiniTodoItems] = useState([]);
 
   useEffect(() => {
     // Load from storage
@@ -98,6 +100,12 @@ const Todo = () => {
     setTodoItems([...todos]);
   };
 
+  // const addMiniTodoItem = (item) => {
+  //   const todos = todoMiniItems;
+  //   todos.push({ todo: item, date: new Date().getTime() });
+  //   setMiniTodoItems([...todos]);
+  // };
+
   const deleteItem = (item) => {
     const todos = todoItems.filter((todoItem) => item !== todoItem);
     setTodoItems(todos);
@@ -114,6 +122,7 @@ const Todo = () => {
     <StyledTodo className="wrapper">
       <h1>todos.</h1>
       <AddItem addItem={addItem} />
+      {/* <AddMiniTodoItem addMiniTodoItem={addMiniTodoItem} /> */}
       <StyledTodoList>
         <ul>
           {todoItems
@@ -127,7 +136,21 @@ const Todo = () => {
               />
             ))}
         </ul>
+        {/* <ul>
+          {todoMiniItems
+            .sort((a, b) => b.date - a.date)
+            .map((item) => (
+              <TodoItem
+                item={item}
+                key={item.date}
+                deleteItem={deleteItem}
+                editItem={editItem}
+              />
+            ))}
+        </ul> */}
       </StyledTodoList>
+
+
       <StyledFooter>
         <p>A simple Todo app made with React.</p>
         <p>

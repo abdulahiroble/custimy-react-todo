@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce';
 import styled from 'styled-components/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import AddMiniTodoItem from './AddMiniTodoItem';
 
 const StyledTodoItem = styled.li`
   padding: 15px 0;
@@ -77,6 +78,53 @@ const StyledTodoItem = styled.li`
 
 const TodoItem = ({ deleteItem, item, editItem }) => {
   const [value, setValue] = useState(item.todo || '');
+  const [todoMiniItems, setMiniTodoItems] = useState([]);
+
+  useEffect(() => {
+    // Load from storage
+    if (typeof Storage !== 'undefined') {
+      // localStorage supported.
+      const todos = JSON.parse(localStorage.getItem('todoMiniItems'));
+      if (todos) {
+        setMiniTodoItems(todos);
+      }
+    } else {
+      // Using cookies here :(
+      let todos = document.cookie;
+      if (todos !== '') {
+        todos = todos.split('; ');
+        const decodedTodos = [];
+        todos.forEach((items) => {
+          const splitItem = items.split('=');
+          decodedTodos.push({
+            date: splitItem[0],
+            todo: splitItem[1],
+          });
+        });
+        setMiniTodoItems(decodedTodos);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    // save to storage
+    if (typeof Storage !== 'undefined') {
+      // localStorage supported.
+      localStorage.setItem('todoMiniItems', JSON.stringify(todoMiniItems));
+    } else {
+      // Using cookies here :(
+      const todos = todoMiniItems;
+      todos.forEach((items) => {
+        document.cookie = `${items.date}=${items.todo}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+      });
+    }
+  }, [todoMiniItems]);
+
+  const addMiniTodoItem = (items) => {
+    const todos = todoMiniItems;
+    todos.push({ todo: items, date: new Date().getTime() });
+    setMiniTodoItems([...todos]);
+  };
 
   const editHandler = useCallback(
     debounce(async (originalItem, editedItemValue) => {
@@ -106,6 +154,8 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
           }}
         />
       </div>
+      <br />
+      <AddMiniTodoItem addMiniTodoItem={addMiniTodoItem} />
     </StyledTodoItem>
   );
 };
