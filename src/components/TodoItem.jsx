@@ -76,6 +76,22 @@ const StyledTodoItem = styled.li`
   }
 `;
 
+const StyledTodoList = styled.div`
+  display: flex;
+  margin-top: 10%;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    color: black;
+  }
+
+`;
+
 const TodoItem = ({ deleteItem, item, editItem }) => {
   const [value, setValue] = useState(item.todo || '');
   const [todoMiniItems, setMiniTodoItems] = useState([]);
@@ -122,7 +138,7 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
 
   const addMiniTodoItem = (items) => {
     const todos = todoMiniItems;
-    todos.push({ todo: items, date: new Date().getTime() });
+    todos.push({ todoMiniItem: items });
     setMiniTodoItems([...todos]);
   };
 
@@ -140,23 +156,33 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
   }, [item, value]);
 
   return (
-    <StyledTodoItem>
-      <div>
-        <button type="button" onClick={() => deleteItem(item)}>
-          <FontAwesomeIcon className="fa-circle" icon={faCircle} />
-          <FontAwesomeIcon className="fa-check-circle" icon={faCheckCircle} />
-        </button>
-        <input
-          value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-            editHandler();
-          }}
-        />
-      </div>
-      <br />
-      <AddMiniTodoItem addMiniTodoItem={addMiniTodoItem} />
-    </StyledTodoItem>
+    <>
+      <StyledTodoItem>
+        <div>
+          <button type="button" onClick={() => deleteItem(item)}>
+            <FontAwesomeIcon className="fa-circle" icon={faCircle} />
+            <FontAwesomeIcon className="fa-check-circle" icon={faCheckCircle} />
+          </button>
+          <input
+            value={value}
+            onChange={(event) => {
+              setValue(event.target.value);
+              editHandler();
+            }}
+          />
+        </div>
+        <br />
+        <AddMiniTodoItem addMiniTodoItem={addMiniTodoItem} />
+      </StyledTodoItem>
+      <StyledTodoList>
+        <ul>
+          {todoMiniItems
+            .map((items) => (
+              <li>{items.todoMiniItem}</li>
+            ))}
+        </ul>
+      </StyledTodoList>
+    </>
   );
 };
 
