@@ -39,16 +39,16 @@ const StyledTodoList = styled.div`
   }
 `;
 
-// const StyledFooter = styled.div`
-//   margin-bottom: 40px;
-//   margin-top: 20px;
-//   text-align: center;
+const StyledFooter = styled.div`
+  margin-bottom: 40px;
+  margin-top: 20px;
+  text-align: center;
 
-//   p {
-//     font-size: 12px;
-//     color: ${({ theme }) => theme.lightGrey};
-//   }
-// `;
+  p {
+    font-size: 12px;
+    color: ${({ theme }) => theme.lightGrey};
+  }
+`;
 
 const Todo = () => {
   const [todoItems, setTodoItems] = useState([]);
@@ -144,7 +144,7 @@ const Todo = () => {
       </StyledTodoList>
 
 
-      {/* <StyledFooter>
+      <StyledFooter>
         <p>A simple Todo app made with React.</p>
         <p>
           It&#39;s ok to close the browser, all items will be saved locally.
@@ -153,7 +153,7 @@ const Todo = () => {
           If you use Private browsing or Incognito mode, the app will be unable
           to save changes.
         </p>
-      </StyledFooter> */}
+      </StyledFooter>
     </StyledTodo>
   );
 };

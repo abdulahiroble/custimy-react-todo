@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 const AddMiniTodoItem = ({ addMiniTodoItem }) => {
     const [value, setValue] = useState('');
+    const [progress, setProgress] = useState(0);
 
     return (
         <form onSubmit={(event) => {
@@ -20,6 +21,15 @@ const AddMiniTodoItem = ({ addMiniTodoItem }) => {
                         setValue(event.target.value);
                     }}
                     placeholder="Add mini todo"
+                    required
+                />
+                <input
+                    type="text"
+                    value={progress}
+                    onChange={(event) => {
+                        setProgress(event.target.value);
+                    }}
+                    placeholder="Progress"
                     required
                 />
                 <button type="submit">

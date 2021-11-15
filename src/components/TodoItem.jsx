@@ -4,6 +4,7 @@ import debounce from 'lodash.debounce';
 import styled from 'styled-components/macro';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle, faCheckCircle } from '@fortawesome/free-regular-svg-icons';
+import ProgressBar from "@ramonak/react-progress-bar";
 import AddMiniTodoItem from './AddMiniTodoItem';
 
 const StyledTodoItem = styled.li`
@@ -138,7 +139,7 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
 
   const addMiniTodoItem = (items) => {
     const todos = todoMiniItems;
-    todos.push({ todoMiniItem: items });
+    todos.push({ todoMiniItem: items, progress: 40 });
     setMiniTodoItems([...todos]);
   };
 
@@ -178,7 +179,7 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
         <ul>
           {todoMiniItems
             .map((items) => (
-              <li>{items.todoMiniItem}</li>
+              <li>{items.todoMiniItem}  <ProgressBar completed={items.progress} /> </li>
             ))}
         </ul>
       </StyledTodoList>
