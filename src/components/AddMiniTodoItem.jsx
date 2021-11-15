@@ -12,7 +12,7 @@ const AddMiniTodoItem = ({ addMiniTodoItem }) => {
             event.preventDefault();
             addMiniTodoItem([value, progress]);
             setValue('');
-            setProgress(0)
+            setProgress('')
         }}>
             <div style={{ "display": "flex" }}>
                 <input
@@ -25,7 +25,7 @@ const AddMiniTodoItem = ({ addMiniTodoItem }) => {
                     required
                 />
                 <input
-                    type="text"
+                    type="number"
                     value={progress}
                     onChange={(event) => {
                         setProgress(event.target.value);

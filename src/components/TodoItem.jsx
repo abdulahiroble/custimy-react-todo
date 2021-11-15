@@ -129,12 +129,6 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
     if (typeof Storage !== 'undefined') {
       // localStorage supported.
       localStorage.setItem('todoMiniItems', JSON.stringify(todoMiniItems));
-    } else {
-      // Using cookies here :(
-      // const todos = todoMiniItems;
-      // todos.forEach((items) => {
-      //   document.cookie = `${items.progress}=${items.todo}`;
-      // });
     }
   }, [todoMiniItems]);
 
@@ -183,7 +177,10 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
         <ul>
           {todoMiniItems
             .map((items) => (
-              <li>{items.todoMiniItem[0]}  <ProgressBar completed={items.todoMiniItem[1]} /> </li>
+              <>
+                <li>{items.todoMiniItem[0]} </li>
+                <li><ProgressBar completed={items.todoMiniItem[1]} /></li>
+              </>
             ))}
         </ul>
       </StyledTodoList>
