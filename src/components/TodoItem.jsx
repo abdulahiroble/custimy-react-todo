@@ -95,6 +95,7 @@ const StyledTodoList = styled.div`
 
 const TodoItem = ({ deleteItem, item, editItem }) => {
   const [value, setValue] = useState(item.todo || '');
+  // const [progressValue, setProgressValue] = useState(item.progress || 0);
   const [todoMiniItems, setMiniTodoItems] = useState([]);
 
   useEffect(() => {
@@ -114,7 +115,7 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
         todos.forEach((items) => {
           const splitItem = items.split('=');
           decodedTodos.push({
-            date: splitItem[0],
+            progress: splitItem[0],
             todo: splitItem[1],
           });
         });
@@ -130,18 +131,21 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
       localStorage.setItem('todoMiniItems', JSON.stringify(todoMiniItems));
     } else {
       // Using cookies here :(
-      const todos = todoMiniItems;
-      todos.forEach((items) => {
-        document.cookie = `${items.date}=${items.todo}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-      });
+      // const todos = todoMiniItems;
+      // todos.forEach((items) => {
+      //   document.cookie = `${items.progress}=${items.todo}`;
+      // });
     }
   }, [todoMiniItems]);
 
   const addMiniTodoItem = (items) => {
     const todos = todoMiniItems;
-    todos.push({ todoMiniItem: items, progress: 40 });
+    todos.push({ todoMiniItem: items, progress: 10 });
     setMiniTodoItems([...todos]);
+    console.log(items)
   };
+
+
 
   const editHandler = useCallback(
     debounce(async (originalItem, editedItemValue) => {
@@ -179,7 +183,7 @@ const TodoItem = ({ deleteItem, item, editItem }) => {
         <ul>
           {todoMiniItems
             .map((items) => (
-              <li>{items.todoMiniItem}  <ProgressBar completed={items.progress} /> </li>
+              <li>{items.todoMiniItem[0]}  <ProgressBar completed={items.todoMiniItem[1]} /> </li>
             ))}
         </ul>
       </StyledTodoList>

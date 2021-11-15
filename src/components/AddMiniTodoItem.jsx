@@ -5,13 +5,14 @@ import PropTypes from 'prop-types';
 
 const AddMiniTodoItem = ({ addMiniTodoItem }) => {
     const [value, setValue] = useState('');
-    const [progress, setProgress] = useState(0);
+    const [progress, setProgress] = useState('');
 
     return (
         <form onSubmit={(event) => {
             event.preventDefault();
-            addMiniTodoItem(value);
+            addMiniTodoItem([value, progress]);
             setValue('');
+            setProgress(0)
         }}>
             <div style={{ "display": "flex" }}>
                 <input
@@ -29,7 +30,7 @@ const AddMiniTodoItem = ({ addMiniTodoItem }) => {
                     onChange={(event) => {
                         setProgress(event.target.value);
                     }}
-                    placeholder="Progress"
+                    placeholder="Add progress"
                     required
                 />
                 <button type="submit">
