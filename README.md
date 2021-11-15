@@ -1,3 +1,37 @@
+![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/43350898/141847869-e0605372-54bd-4bb5-bf2c-fb077113d585.gif)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Introduction
 
 This is a simple To-do application built in ReactJS used as a starting point to show proficiency working in the frontend. 
